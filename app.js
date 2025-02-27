@@ -19,6 +19,7 @@ const db = getFirestore(app);
 // Funktion: Trainings abrufen & anzeigen
 async function loadTrainings() {
     console.log("Lade Trainings...");
+    console.log("Empfangene Daten:", querySnapshot.docs.map(doc => doc.data())); 
     
     const trainingList = document.getElementById("training-list");
     if (!trainingList) {
