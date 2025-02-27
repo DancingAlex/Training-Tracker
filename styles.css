@@ -1,28 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&display=swap');
+/* ====================
+   🌌 Modern Glassmorphism Design
+   ==================== */
 
 body {
-    background-color: #000000;  /* Tiefes Schwarz als Basis */
-    color: #FFFFFF;  /* Klare weiße Schrift für Kontrast */
-    font-family: 'Oswald', sans-serif;
-    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+    color: #ffffff;
     margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
     padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
 }
 
 h1 {
-    font-size: 3em;
+    font-size: 28px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 10px;
-    color: #00AEEF;  /* Leuchtendes Blau für Energie */
-}
-
-h2 {
-    font-size: 1.8em;
-    font-weight: 400;
-    margin-bottom: 20px;
-    color: #4D96FF;  /* Weicheres Cyan-Blau als Akzent */
+    color: #ffcc00;
 }
 
 ul {
@@ -31,20 +39,43 @@ ul {
 }
 
 li {
-    background: rgba(10, 37, 64, 0.8);  /* Dunkelblauer Hintergrund für Tiefe */
-    border: 2px solid rgba(77, 150, 255, 0.5);  /* Sanftes Blau für Akzent */
-    padding: 15px;
-    margin: 10px auto;
-    max-width: 600px;
-    font-size: 1.2em;
-    font-weight: 300;
-    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px;
+    margin: 10px 0;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 174, 239, 0.3);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(255, 204, 0, 0.5);
+}
+
+/* Subtile Glow Effects */
+@keyframes glowing {
+    0% { box-shadow: 0 0 5px rgba(255, 204, 0, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(255, 204, 0, 1); }
+    100% { box-shadow: 0 0 5px rgba(255, 204, 0, 0.5); }
+}
+
+li:active {
+    animation: glowing 0.5s ease-in-out;
+}
+
+/* Smooth Transitions */
+button {
+    background: #ffcc00;
+    color: #0d0d0d;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #e6b800;
     transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(0, 174, 239, 0.6);
 }
