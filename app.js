@@ -1,6 +1,8 @@
+// Firebase SDK importieren
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
+// Deine Firebase Konfiguration
 const firebaseConfig = {
     apiKey: "AIzaSyB_syns9kmQvF5_DqiTWYRgHwXBWqKxRn4",
     authDomain: "training-tracker-b97b1.firebaseapp.com",
@@ -10,6 +12,7 @@ const firebaseConfig = {
     appId: "1:578482185576:web:1056823ae419e815fea2dd"
 };
 
+// Firebase initialisieren
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -32,4 +35,5 @@ async function loadTrainings() {
     });
 }
 
+// Starte das Laden der Trainings, wenn die Seite geladen ist
 document.addEventListener("DOMContentLoaded", loadTrainings);
