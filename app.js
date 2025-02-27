@@ -16,10 +16,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Funktion: Trainings abrufen & anzeigen
+// Trainings laden
 async function loadTrainings() {
     console.log("Lade Trainings...");
-    console.log("Empfangene Daten:", querySnapshot.docs.map(doc => doc.data())); 
     
     const trainingList = document.getElementById("training-list");
     if (!trainingList) {
@@ -37,7 +36,7 @@ async function loadTrainings() {
             return;
         }
 
-        trainingList.innerHTML = ""; // Leere die Liste vor dem Laden neuer Daten
+        trainingList.innerHTML = ""; // Liste leeren
 
         querySnapshot.forEach((doc) => {
             const training = doc.data();
@@ -45,28 +44,24 @@ async function loadTrainings() {
             li.classList.add("training-item");
             li.innerHTML = `
                 <span class="training-date">${training.Datum}:</span>
-                <span class="training-type">${training.Art} - Dauer: ${training.Dauer} min</span>
-                <span class="training-intensity"> | Intensität: ${training.Intensität}</span>
-                <span class="training-notes"> | Notizen: ${training.Notizen}</span>
+                <span class="training-type">${training.Art}</span> - 
+                Dauer: <span class="training-duration">${training.Dauer}</span> min | 
+                Intensität: <span class="training-intensity">${training.Intensität}</span> | 
+                Notizen: <span class="training-notes">${training.Notizen}</span>
             `;
             trainingList.appendChild(li);
         });
-
     } catch (error) {
         console.error("Fehler beim Laden der Trainings:", error);
-        trainingList.innerHTML = `<p class="error">Fehler beim Laden der Trainings.</p>`;
+        trainingList.innerHTML = `<p class="error">Fehler beim Laden der Daten.</p>`;
     }
 }
 
-// Event-Listener für Aktualisieren-Button
-document.getElementById("update-btn").addEventListener("click", loadTrainings);
-
-// Beim Laden der Seite direkt ausführen
-document.addEventListener("DOMContentLoaded", loadTrainings);
-async function loadTrainings() {
-    console.log("Lade Trainings...");
-    
-    const querySnapshot = await getDocs(collection(db, "trainings"));
-    
-    console.log("Empfangene Daten:", querySnapshot.docs.map(doc => doc.data())); 
-}
+// Button-Eventlistener
+document.addEventListener("DOMContentLoaded", () => {
+    const updateButton = document.getElementById("update-button");
+    if (updateButton) {
+        updateButton.addEventListener("click", loadTrainings);
+    }
+    loadTrainings();
+});
