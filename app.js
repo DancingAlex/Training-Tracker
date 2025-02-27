@@ -1,3 +1,20 @@
+// Firebase SDK importieren
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore"; 
+
+// Deine Firebase Konfiguration
+const firebaseConfig = {
+    apiKey: "AIzaSyB_syns9kmQvF5_DqiTWYRgHwXB...",
+    authDomain: "training-tracker-b97b1.firebaseapp.com",
+    projectId: "training-tracker-b97b1",
+    storageBucket: "training-tracker-b97b1.appspot.com",
+    messagingSenderId: "578482185576",
+    appId: "1:578482185576:web:1056823ae419e8..."
+};
+
+// Firebase initialisieren
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 document.addEventListener("DOMContentLoaded", function() {
     const trainingData = [
         { date: "22.02.2025", title: "Chill-Vibe-Session", type: "Breaking", duration: "60 min", intensity: "Leicht", notes: "Fokus auf Flow und Entspannung" },
@@ -16,3 +33,17 @@ document.addEventListener("DOMContentLoaded", function() {
         trainingList.appendChild(listItem);
     });
 });
+// Funktion: Trainings aus Firebase abrufen & anzeigen
+async function loadTrainings() {
+  const querySnapshot = await getDocs(collection(db, "trainings"));
+  let trainings = [];
+  querySnapshot.forEach((doc) => {
+    trainings.push(doc.data());
+  });
+
+  // Hier fügst du den Code ein, um die Trainings auf der Seite anzuzeigen
+  console.log("Trainings geladen:", trainings);
+}
+
+// Starte das Laden der Trainings, wenn die Seite geladen ist
+document.addEventListener("DOMContentLoaded", loadTrainings);
