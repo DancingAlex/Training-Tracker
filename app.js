@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// Firebase Konfiguration (ersetze NICHTS, das ist bereits dein richtiger Code)
+// Firebase Konfiguration (deine bestehenden Daten, NICHT ÄNDERN!)
 const firebaseConfig = {
     apiKey: "AIzaSyB_syns9kmQvF5_DqiTWYRgHwXBWqKxRn4",
     authDomain: "training-tracker-b97b1.firebaseapp.com",
@@ -18,26 +18,27 @@ const db = getFirestore(app);
 
 // Funktion: Trainings aus Firebase abrufen & anzeigen
 async function loadTrainings() {
+    console.log("Lade Trainings..."); // Debug-Log
     const querySnapshot = await getDocs(collection(db, "trainings"));
     const trainingList = document.getElementById("training-list");
 
-    // Falls die Liste existiert, leere sie
-    if (trainingList) {
-        trainingList.innerHTML = "";
-    
-        querySnapshot.forEach((doc) => {
-            const training = doc.data();
-            const li = document.createElement("li");
-            li.innerHTML = `<strong>${training.Datum}:</strong> ${training.Art} - Dauer: ${training.Dauer} min | Intensität: ${training.Intensität} | Notizen: ${training.Notizen}`;
-            li.style.padding = "10px";
-            li.style.background = "#333";
-            li.style.margin = "5px 0";
-            li.style.borderRadius = "5px";
-            trainingList.appendChild(li);
-        });
-    } else {
-        console.error("Fehler: training-list Element nicht gefunden.");
+    if (!trainingList) {
+        console.error("Fehler: 'training-list' Element nicht gefunden.");
+        return;
     }
+
+    trainingList.innerHTML = "";
+    querySnapshot.forEach((doc) => {
+        const training = doc.data();
+        console.log("Gefundenes Training:", training); // Debug-Log
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${training.Datum}:</strong> ${training.Art} - Dauer: ${training.Dauer} min | Intensität: ${training.Intensität} | Notizen: ${training.Notizen}`;
+        li.style.padding = "10px";
+        li.style.background = "#333";
+        li.style.margin = "5px 0";
+        li.style.borderRadius = "5px";
+        trainingList.appendChild(li);
+    });
 }
 
 // Starte das Laden der Trainings, wenn die Seite geladen ist
