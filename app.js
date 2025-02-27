@@ -18,39 +18,30 @@ const db = getFirestore(app);
 
 // Funktion: Trainings aus Firebase abrufen & anzeigen
 async function loadTrainings() {
-    console.log("🔥 Starte Abruf der Trainingsdaten...");
-    try {
-        const querySnapshot = await getDocs(collection(db, "Trainings"));
-        const trainingList = document.getElementById("training-list");
+    const querySnapshot = await getDocs(collection(db, "trainings"));
+    const trainingList = document.getElementById("training-list");
 
-        if (!trainingList) {
-            console.error("❌ Fehler: Element mit ID 'training-list' nicht gefunden.");
-            return;
-        }
-
-        trainingList.innerHTML = "";
-        if (querySnapshot.empty) {
-            console.warn("⚠️ Keine Trainings gefunden.");
-            trainingList.innerHTML = "<li>Keine Trainings gefunden.</li>";
-            return;
-        }
+    if (trainingList) {
+        trainingList.innerHTML = ""; // Liste vorher leeren
 
         querySnapshot.forEach((doc) => {
             const training = doc.data();
             const li = document.createElement("li");
-            li.innerHTML = `<strong>${training.Datum}:</strong> ${training.Art} - Dauer: ${training.Dauer} min | Intensität: ${training.Intensität} | Notizen: ${training.Notizen}`;
-            li.style.padding = "10px";
-            li.style.background = "#333";
-            li.style.color = "white";
-            li.style.margin = "5px 0";
-            li.style.borderRadius = "5px";
+            li.innerHTML = `
+                <div class="training-card">
+                    <h3>${training.Datum}</h3>
+                    <p><strong>Art:</strong> ${training.Art}</p>
+                    <p><strong>Dauer:</strong> ${training.Dauer} min</p>
+                    <p><strong>Intensität:</strong> ${training.Intensität}</p>
+                    <p><strong>Notizen:</strong> ${training.Notizen}</p>
+                </div>
+            `;
             trainingList.appendChild(li);
         });
-        console.log("✅ Trainingsdaten erfolgreich geladen.");
-    } catch (error) {
-        console.error("❌ Fehler beim Abrufen der Trainingsdaten:", error);
+    } else {
+        console.error("Fehler: training-list Element nicht gefunden.");
     }
 }
 
-// Sobald die Seite geladen ist, lade die Trainings
-window.onload = loadTrainings;
+// Starte das Laden der Trainings, wenn die Seite geladen ist
+document.addEventListener("DOMContentLoaded", loadTrainings);
