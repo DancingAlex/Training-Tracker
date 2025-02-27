@@ -16,34 +16,31 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Funktion: Trainings aus Firebase abrufen & anzeigen
+// Funktion: Trainings abrufen & anzeigen
 async function loadTrainings() {
     console.log("Lade Trainings...");
-
-    const querySnapshot = await getDocs(collection(db, "trainings"));
+    
     const trainingList = document.getElementById("training-list");
+    if (!trainingList) {
+        console.error("Element 'training-list' nicht gefunden.");
+        return;
+    }
 
-    // Falls die Liste existiert, leere sie
-    if (trainingList) {
-        trainingList.innerHTML = "";
+    trainingList.innerHTML = `<p class="loading">Lade Trainings...</p>`;
+
+    try {
+        const querySnapshot = await getDocs(collection(db, "trainings"));
+
+        if (querySnapshot.empty) {
+            trainingList.innerHTML = `<p class="no-trainings">Keine Trainings gefunden.</p>`;
+            return;
+        }
+
+        trainingList.innerHTML = ""; // Leere die Liste vor dem Laden neuer Daten
 
         querySnapshot.forEach((doc) => {
             const training = doc.data();
             const li = document.createElement("li");
-            li.innerHTML = `<strong>${training.Datum}:</strong> ${training.Art} - Dauer: ${training.Dauer} min | Intensität: ${training.Intensität} | Notizen: ${training.Notizen}`;
-            trainingList.appendChild(li);
-        });
-
-        if (querySnapshot.empty) {
-            trainingList.innerHTML = "<li>Keine Trainings gefunden.</li>";
-        }
-    } else {
-        console.error("Fehler: training-list Element nicht gefunden.");
-    }
-}
-
-// Starte das Laden der Trainings, wenn die Seite geladen ist
-document.addEventListener("DOMContentLoaded", loadTrainings);
-
-// Reload-Button hinzufügen
-document.getElementById("reload-btn").addEventListener("click", loadTrainings);
+            li.classList.add("training-item");
+            li.innerHTML = `
+                <span class="training-date">${training.Datum}:</span
