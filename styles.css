@@ -1,20 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: white;
+    background-color: #000000;  /* Tiefes Schwarz als Basis */
+    color: #FFFFFF;  /* Klare weiße Schrift für Kontrast */
+    font-family: 'Oswald', sans-serif;
     text-align: center;
     margin: 0;
-    padding: 0;
-}
-
-.container {
-    width: 80%;
-    margin: auto;
     padding: 20px;
 }
 
-h1, h2 {
-    color: #f8b400;
+h1 {
+    font-size: 3em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    color: #00AEEF;  /* Leuchtendes Blau für Energie */
+}
+
+h2 {
+    font-size: 1.8em;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: #4D96FF;  /* Weicheres Cyan-Blau als Akzent */
 }
 
 ul {
@@ -23,8 +31,20 @@ ul {
 }
 
 li {
-    background: #1e1e1e;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 8px;
+    background: rgba(10, 37, 64, 0.8);  /* Dunkelblauer Hintergrund für Tiefe */
+    border: 2px solid rgba(77, 150, 255, 0.5);  /* Sanftes Blau für Akzent */
+    padding: 15px;
+    margin: 10px auto;
+    max-width: 600px;
+    font-size: 1.2em;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 174, 239, 0.3);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+li:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 174, 239, 0.6);
 }
