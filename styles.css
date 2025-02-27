@@ -1,36 +1,37 @@
-/* ====================
-   🌌 Modern Glassmorphism Design
-   ==================== */
-
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
-    color: #ffffff;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #161616, #222222);
+    color: #fff;
+    text-align: center;
     margin: 0;
     padding: 0;
+}
+
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-.container {
-    width: 90%;
-    max-width: 800px;
-    padding: 20px;
+.card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px);
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    text-align: center;
+    border-radius: 20px;
+    padding: 30px;
+    width: 60%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 h1 {
-    font-size: 28px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    font-size: 24px;
     color: #ffcc00;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 18px;
+    color: #e0e0e0;
 }
 
 ul {
@@ -39,43 +40,31 @@ ul {
 }
 
 li {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    padding: 15px;
     margin: 10px 0;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: 0.3s ease-in-out;
 }
 
 li:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(255, 204, 0, 0.5);
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
 }
 
-/* Subtile Glow Effects */
-@keyframes glowing {
-    0% { box-shadow: 0 0 5px rgba(255, 204, 0, 0.5); }
-    50% { box-shadow: 0 0 20px rgba(255, 204, 0, 1); }
-    100% { box-shadow: 0 0 5px rgba(255, 204, 0, 0.5); }
-}
-
-li:active {
-    animation: glowing 0.5s ease-in-out;
-}
-
-/* Smooth Transitions */
 button {
     background: #ffcc00;
-    color: #0d0d0d;
+    color: black;
     border: none;
     padding: 10px 20px;
-    border-radius: 10px;
-    font-weight: bold;
+    margin-top: 15px;
+    font-size: 16px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: 0.3s ease-in-out;
 }
 
 button:hover {
-    background: #e6b800;
-    transform: scale(1.05);
+    background: #ffaa00;
 }
