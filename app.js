@@ -2,15 +2,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// Debug-Funktion
-function debugLog(message) {
-    const debugBox = document.getElementById("debug-box");
-    if (debugBox) {
-        debugBox.innerHTML += message + "<br>";
-    }
-    console.log(message);
-}
-
 // Firebase Konfiguration
 const firebaseConfig = {
     apiKey: "AIzaSyB_syns9kmQvF5_DqiTWYRgHwXBWqKxRn4",
@@ -22,43 +13,44 @@ const firebaseConfig = {
 };
 
 // Firebase initialisieren
-debugLog("Initialisiere Firebase...");
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Funktion: Trainings aus Firebase abrufen & anzeigen
 async function loadTrainings() {
+    console.log("🔥 Starte Abruf der Trainingsdaten...");
     try {
-        debugLog("Lade Trainings...");
-        const querySnapshot = await getDocs(collection(db, "trainings"));
+        const querySnapshot = await getDocs(collection(db, "Trainings"));
         const trainingList = document.getElementById("training-list");
 
         if (!trainingList) {
-            debugLog("Fehler: training-list Element nicht gefunden.");
+            console.error("❌ Fehler: Element mit ID 'training-list' nicht gefunden.");
             return;
         }
 
         trainingList.innerHTML = "";
-
         if (querySnapshot.empty) {
-            debugLog("Keine Trainings gefunden.");
-        } else {
-            querySnapshot.forEach((doc) => {
-                const training = doc.data();
-                const li = document.createElement("li");
-                li.innerHTML = `<strong>${training.Datum}:</strong> ${training.Art} - Dauer: ${training.Dauer} min | Intensität: ${training.Intensität} | Notizen: ${training.Notizen}`;
-                li.style.padding = "10px";
-                li.style.background = "#333";
-                li.style.margin = "5px 0";
-                li.style.borderRadius = "5px";
-                trainingList.appendChild(li);
-                debugLog(`Geladen: ${training.Datum} - ${training.Art}`);
-            });
+            console.warn("⚠️ Keine Trainings gefunden.");
+            trainingList.innerHTML = "<li>Keine Trainings gefunden.</li>";
+            return;
         }
+
+        querySnapshot.forEach((doc) => {
+            const training = doc.data();
+            const li = document.createElement("li");
+            li.innerHTML = `<strong>${training.Datum}:</strong> ${training.Art} - Dauer: ${training.Dauer} min | Intensität: ${training.Intensität} | Notizen: ${training.Notizen}`;
+            li.style.padding = "10px";
+            li.style.background = "#333";
+            li.style.color = "white";
+            li.style.margin = "5px 0";
+            li.style.borderRadius = "5px";
+            trainingList.appendChild(li);
+        });
+        console.log("✅ Trainingsdaten erfolgreich geladen.");
     } catch (error) {
-        debugLog("Fehler beim Laden der Trainings: " + error.message);
+        console.error("❌ Fehler beim Abrufen der Trainingsdaten:", error);
     }
 }
 
-// Starte das Laden der Trainings, wenn die Seite geladen ist
-document.addEventListener("DOMContentLoaded", loadTrainings);
+// Sobald die Seite geladen ist, lade die Trainings
+window.onload = loadTrainings;
