@@ -12,9 +12,14 @@
         <div class="card">
             <h1>TRAINING TRACKER</h1>
             <h2>Deine letzten Trainings</h2>
-            <button id="update-btn" class="update-button">🔄 Aktualisieren</button>
             <ul id="training-list"></ul>
+            <button id="refresh-btn">🔄 Aktualisieren</button>
         </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
+        </div>
+        <canvas id="heatmap" width="400" height="200"></canvas>
+        <canvas id="chart" width="400" height="200"></canvas>
     </div>
 </body>
 </html>
