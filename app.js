@@ -43,4 +43,22 @@ async function loadTrainings() {
             const li = document.createElement("li");
             li.classList.add("training-item");
             li.innerHTML = `
-                <span class="training-date">${training.Datum}:</span
+                <span class="training-date">${training.Datum}:</span>
+                <span class="training-type">${training.Art} - Dauer: ${training.Dauer} min</span>
+                <span class="training-intensity"> | Intensität: ${training.Intensität}</span>
+                <span class="training-notes"> | Notizen: ${training.Notizen}</span>
+            `;
+            trainingList.appendChild(li);
+        });
+
+    } catch (error) {
+        console.error("Fehler beim Laden der Trainings:", error);
+        trainingList.innerHTML = `<p class="error">Fehler beim Laden der Trainings.</p>`;
+    }
+}
+
+// Event-Listener für Aktualisieren-Button
+document.getElementById("update-btn").addEventListener("click", loadTrainings);
+
+// Beim Laden der Seite direkt ausführen
+document.addEventListener("DOMContentLoaded", loadTrainings);
