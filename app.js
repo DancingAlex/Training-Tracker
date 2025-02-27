@@ -1,8 +1,8 @@
 // Firebase SDK importieren
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs } from "firebase/firestore"; 
 
-// Deine Firebase Konfiguration
+// Firebase Konfiguration (ersetze NICHTS, das ist bereits dein richtiger Code)
 const firebaseConfig = {
     apiKey: "AIzaSyB_syns9kmQvF5_DqiTWYRgHwXBWqKxRn4",
     authDomain: "training-tracker-b97b1.firebaseapp.com",
@@ -21,18 +21,23 @@ async function loadTrainings() {
     const querySnapshot = await getDocs(collection(db, "trainings"));
     const trainingList = document.getElementById("training-list");
 
-    trainingList.innerHTML = ""; // Leert die Liste vorher
-
-    querySnapshot.forEach((doc) => {
-        const training = doc.data();
-        const li = document.createElement("li");
-        li.innerHTML = `<strong>${training.Datum}:</strong> ${training.Art} - Dauer: ${training.Dauer} min | Intensität: ${training.Intensität} | Notizen: ${training.Notizen}`;
-        li.style.padding = "10px";
-        li.style.background = "#333";
-        li.style.margin = "5px 0";
-        li.style.borderRadius = "5px";
-        trainingList.appendChild(li);
-    });
+    // Falls die Liste existiert, leere sie
+    if (trainingList) {
+        trainingList.innerHTML = "";
+    
+        querySnapshot.forEach((doc) => {
+            const training = doc.data();
+            const li = document.createElement("li");
+            li.innerHTML = `<strong>${training.Datum}:</strong> ${training.Art} - Dauer: ${training.Dauer} min | Intensität: ${training.Intensität} | Notizen: ${training.Notizen}`;
+            li.style.padding = "10px";
+            li.style.background = "#333";
+            li.style.margin = "5px 0";
+            li.style.borderRadius = "5px";
+            trainingList.appendChild(li);
+        });
+    } else {
+        console.error("Fehler: training-list Element nicht gefunden.");
+    }
 }
 
 // Starte das Laden der Trainings, wenn die Seite geladen ist
