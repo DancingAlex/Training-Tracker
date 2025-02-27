@@ -62,3 +62,10 @@ document.getElementById("update-btn").addEventListener("click", loadTrainings);
 
 // Beim Laden der Seite direkt ausführen
 document.addEventListener("DOMContentLoaded", loadTrainings);
+async function loadTrainings() {
+    console.log("Lade Trainings...");
+    
+    const querySnapshot = await getDocs(collection(db, "trainings"));
+    
+    console.log("Empfangene Daten:", querySnapshot.docs.map(doc => doc.data())); 
+}
