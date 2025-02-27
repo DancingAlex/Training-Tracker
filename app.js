@@ -18,24 +18,19 @@ const db = getFirestore(app);
 
 // Funktion: Trainings aus Firebase abrufen & anzeigen
 async function loadTrainings() {
+    console.log("Lade Trainings...");
+
     const querySnapshot = await getDocs(collection(db, "trainings"));
     const trainingList = document.getElementById("training-list");
 
+    // Falls die Liste existiert, leere sie
     if (trainingList) {
-        trainingList.innerHTML = ""; // Liste vorher leeren
+        trainingList.innerHTML = "";
 
         querySnapshot.forEach((doc) => {
             const training = doc.data();
             const li = document.createElement("li");
-            li.innerHTML = `
-                <div class="training-card">
-                    <h3>${training.Datum}</h3>
-                    <p><strong>Art:</strong> ${training.Art}</p>
-                    <p><strong>Dauer:</strong> ${training.Dauer} min</p>
-                    <p><strong>Intensität:</strong> ${training.Intensität}</p>
-                    <p><strong>Notizen:</strong> ${training.Notizen}</p>
-                </div>
-            `;
+            li.innerHTML = `<strong>${training.Datum}:</strong> ${training.Art} - Dauer: ${training.Dauer} min | Intensität: ${training.Intensität} | Notizen: ${training.Notizen}`;
             trainingList.appendChild(li);
         });
     } else {
@@ -45,3 +40,6 @@ async function loadTrainings() {
 
 // Starte das Laden der Trainings, wenn die Seite geladen ist
 document.addEventListener("DOMContentLoaded", loadTrainings);
+
+// Reload-Button hinzufügen
+document.getElementById("reload-btn").addEventListener("click", loadTrainings);
