@@ -33,6 +33,10 @@ async function loadTrainings() {
             li.innerHTML = `<strong>${training.Datum}:</strong> ${training.Art} - Dauer: ${training.Dauer} min | Intensität: ${training.Intensität} | Notizen: ${training.Notizen}`;
             trainingList.appendChild(li);
         });
+
+        if (querySnapshot.empty) {
+            trainingList.innerHTML = "<li>Keine Trainings gefunden.</li>";
+        }
     } else {
         console.error("Fehler: training-list Element nicht gefunden.");
     }
